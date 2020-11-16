@@ -1,0 +1,4 @@
+resource "aws_key_pair" "ubuntu_asus" {
+      key_name = "ubuntu_asus"
+      public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHY+KatuL2KmDT4qkayrGAOHX/MXxVZU5Smjm9imrfzyJD/zP9x7WuJQibk0OL9I0EsVP0UA2Xbk4I18SHUi4DTt0G08EPbk7Dfvm5by1z+Th3+oj+U8FqNF29CroYVONraMRjrzF9i9XbKhPYQhirt5+dcVpxRIJPsB13mhkuFNTGUWUUdoWHPikKqphRnJmaoLh1pPO/G347tPw/nRTXsn9spcX/VEl8tlKn4zL66TqMB4Ha60R/WxfbiwyaCmvsKLwx0WAZQS9KXpE2SNtLgAb+2ydLzMatHaHJCIuaS7iMJvzj3j0nKg8TmjdeWcZ4aSHhMwZWYVk363i8R2HqSa951GF4h0rvIeT/a+x5kWgsf/uloclfNxgW7gyzfqjinlElxf+wMFfKWQ8y2/a4feIWGCE0As4p5pUKn/b4gzJjQnjjrDJ42NJy4gg/yo2A7xQEOkSyWgCUf5qZO5PIdc/hJcVr276apFKayuq3q2XGiqcZtFVLlZ9ngwuTtfM="
+}
