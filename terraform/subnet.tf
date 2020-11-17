@@ -1,8 +1,8 @@
 resource "aws_subnet" "public_A" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = "10.12.72.0/24"
+  cidr_block = "${var.subnet1_cidr_block}"
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1a"
+  availability_zone = "${var.subnet1_avail_zone}"
 
   tags = {
     Name = "masterclass"
@@ -11,8 +11,8 @@ resource "aws_subnet" "public_A" {
 
 resource "aws_subnet" "private_A" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = "10.12.40.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block = "${var.subnet2_cidr_block}"
+  availability_zone = "${var.subnet2_avail_zone}"
 
   tags = {
     Name = "masterclass"

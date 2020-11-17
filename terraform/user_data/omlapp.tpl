@@ -2,35 +2,6 @@
 
 #Inventory variables - Inventory variables - Inventory variables
 
-
-NIC=eth1 #NET Interface to attach services
-omnileads_release=release-1.11.0  #OMniLeads release to deploy
-TZ=America/Argentina/Cordoba  #Time Zone
-sca=1800 # Session cockie age
-
-ami_user=omnileadsami   #Asterisk AMI user
-ami_password=5_MeO_DMT  #Asterisk AMI pass
-
-dialer_host=localhost #Wombat dialer location
-dialer_user=demoadmin
-dialer_password=demo
-mysql_host=localhost #DB for wombat dialer
-
-rtpengine_host=   #RTPengine location
-
-# OMniLeads App PGSQL parameters
-pg_database=omnileads
-pg_username=omnileads
-pg_password=my_very_strong_pass
-# private host addr and default password of your digitalocean pgsql cluster
-pg_host=
-pg_default_password=
-# digitalocean default pgsql cluster parameters
-pg_port=25060
-pg_default_database=defaultdb
-pg_default_user=doadmin
-
-
 yum update -y
 yum install git -y
 
@@ -75,5 +46,9 @@ if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop qm-tomcat6 && systemctl disable qm-tomcat6
   systemctl stop mariadb && systemctl disable mariadb
 fi
+
+echo "digitalocean requiere SSL to connect PGSQL"
+echo "SSLMode       = require" >> /etc/odbc.ini
+
 
 reboot
