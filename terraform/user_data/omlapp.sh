@@ -1,9 +1,37 @@
 #!/bin/bash
 
+NIC="eth0" #NET Interface to attach services
+omnileads_release="release-1.11.0"  #OMniLeads release to deploy
+TZ="America/Argentina/Cordoba"  #Time Zone
+sca="1800" # Session cockie age
+ami_user="omnileadsami"   #Asterisk AMI user
+ami_password="5_MeO_DMT"  #Asterisk AMI pass
+dialer_host="localhost" #Wombat dialer location
+dialer_user="demoadmin"
+dialer_password="demo"
+mysql_host="localhost" #DB for wombat dialer
+rtpengine_host="10.10.10.10"   #RTPengine location
+pg_database="omnileads"
+pg_username="omnileads"
+pg_password="my_very_strong_pass"
+
+AWS="/usr/bin/aws"
+SSM_AGENT_URL="https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm"
+S3FS="/bin/s3fs"
+INSTALL_PREFIX="/opt/omnileads"
+ASTERISK_LOCATION="$INSTALL_PREFIX/asterisk"
+AWS_REGION=${aws_region}
+
+echo "Instalando amazon-ssm-agent, kernel-devel y git"
+amazon-linux-extras install epel
+yum install -y $SSM_AGENT_URL kernel-devel git s3fs-fuse
+
+systemctl start amazon-ssm-agent
+systemctl enable amazon-ssm-agent
+
 #Inventory variables - Inventory variables - Inventory variables
 
 yum update -y
-yum install git -y
 
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
@@ -40,7 +68,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 sleep 10
 
 echo "deploy.sh execution"
-cd deploy/ansible && ./deploy.sh -i --iface=$NIC
+cd deploy/ansible && ./deploy.sh -i --iface=eth0
 sleep 5
 if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop qm-tomcat6 && systemctl disable qm-tomcat6
@@ -50,5 +78,10 @@ fi
 echo "digitalocean requiere SSL to connect PGSQL"
 echo "SSLMode       = require" >> /etc/odbc.ini
 
+yum install ncurses-devel make libpcap-devel pcre-devel \
+    openssl-devel git gcc autoconf automake -y
+cd /root && git clone https://github.com/irontec/sngrep
+cd sngrep && ./bootstrap.sh && ./configure && make && make install
+ln -s /usr/local/bin/sngrep /usr/bin/sngrep
 
 reboot

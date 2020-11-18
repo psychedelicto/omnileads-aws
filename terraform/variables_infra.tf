@@ -98,35 +98,34 @@ variable "rtpengine_host" {
   type = string
 }
 
+#variable "pg_database" {
+#  type = string
+#}
 
-variable "pg_database" {
-  type = string
-}
+#variable "pg_username" {
+#  type = string
+#}
 
-variable "pg_username" {
-  type = string
-}
+#variable "pg_password" {
+#  type = string
+#}
 
-variable "pg_password" {
-  type = string
-}
+#variable "pg_host" {
+#  type = string
+#}
 
-variable "pg_host" {
-  type = string
-}
+#variable "pg_default_password" {
+#  type = string
+#}
 
-variable "pg_default_password" {
-  type = string
-}
+#variable "pg_port" {
+#  type = string
+#}
 
-variable "pg_port" {
-  type = string
-}
+#variable "pg_default_database" {
+#  type = string
+#}
 
-variable "pg_default_database" {
-  type = string
-}
-
-variable "pg_default_user" {
-  type = string
-}
+#variable "pg_default_user" {
+#  type = string
+#}
